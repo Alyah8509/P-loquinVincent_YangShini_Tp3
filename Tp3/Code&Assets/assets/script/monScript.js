@@ -5,9 +5,9 @@
             request.onreadystatechange=function(){
               if(this.readyState==4&&this.status==200){
                const array=JSON.parse(this.responseText);//array avec tous les produits. Il est constant.
-                let categorie= $("#product-categories .selected").html();//quelle catégorie qui est sélectionné
-                let classe= $("#product-criteria .selected").html();//classement sélectionné
-                let current; //array qui contient les produits affichés
+                var categorie= $("#product-categories .selected").html();//quelle catégorie qui est sélectionné
+                var classe= $("#product-criteria .selected").html();//classement sélectionné
+                var current; //array qui contient les produits affichés
                 redCircle();//s'occupe de mettre à jour le cercle rouge sur le header
                 set(array,classe,categorie, current);//contient les fonctions qui update les produits à afficher
                 $("button").click(function(){
@@ -23,6 +23,7 @@
       }
 
       $(document).ready(function(){
+        
         fetch();//appelle fetch (la fonction en haut qui contient les actions à faire)
       })
       
@@ -244,8 +245,10 @@
       }
 
       function redCircle(){
+        if(sessionStorage.getItem("produits")===null){
+          sessionStorage.setItem("produits",0);
+        }
         var produitsMis=sessionStorage.getItem("produits");
-    produitsMis=parseInt(produitsMis);
     if(produitsMis!=0){
       $('.count').html(produitsMis);
       
