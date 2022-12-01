@@ -51,7 +51,7 @@
           let i=array.findIndex(search=>search.id==current[index])//cherche l'index de l'id dans Current
           //avec cet index, on peut accéder aux informations du produits avec l'array.
           text+="<div class=\"product\"> <a href=\"./product.html?id="+array[i].id+"\" title=\"En savoir plus...\"> <h2>"+array[i].name+"</h2> <img alt=\""+array[i].name+
-    "\" src=\"./assets/img/"+array[i].image+"\"> <p class=\"price\"><small>Prix</small>"+array[i].price+"&thinsp;$</p> </a> </div>"
+    "\" src=\"./assets/img/"+array[i].image+"\"> <p class=\"price\"><small>Prix :</small>"+array[i].price+"&thinsp;$</p> </a> </div>"
     $('#products-list').append(text)//ajoute le texte au div, puis reset text.
     text="";
         }}
