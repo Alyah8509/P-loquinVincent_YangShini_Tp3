@@ -68,7 +68,7 @@
           case 'Appareils photo':
           for (let index=0; index<array.length; index++ ){
             if(array[index].category=='cameras'){
-              current.push(arrè[index].id);
+              current.push(array[index].id);
             }}
             break;
             case 'Écrans':
