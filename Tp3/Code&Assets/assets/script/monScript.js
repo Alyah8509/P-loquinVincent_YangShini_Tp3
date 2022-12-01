@@ -262,6 +262,5 @@
     }else{
       $('#anchor').html(" <span class=\"count\"></span>");
       $('.count').html(produitsMis);
-      console.log("AD")
     }
       }
