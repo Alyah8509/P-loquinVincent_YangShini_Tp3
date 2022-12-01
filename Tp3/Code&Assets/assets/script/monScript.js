@@ -11,8 +11,8 @@
                 redCircle();//s'occupe de mettre à jour le cercle rouge sur le header
                 set(array,classe,categorie, current);//contient les fonctions qui update les produits à afficher
                 $("button").click(function(){
-                    $(this).siblings(" .selected").toggleClass('selected');
-                    $(this).toggleClass('selected');//change les classes au click
+                    $(this).siblings(" .selected").removeClass('selected');
+                    $(this).addClass('selected');//change les classes au click
                     set(array,classe,categorie,current);//update Current pour l'afficher
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
