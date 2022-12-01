@@ -16,6 +16,7 @@
                     set(array,classe,categorie,current);//update Current pour l'afficher
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
+                redCircle();
               }
             }
             request.open("GET",url,true);
@@ -23,7 +24,6 @@
       }
 
       $(document).ready(function(){
-        
         fetch();//appelle fetch (la fonction en haut qui contient les actions à faire)
       })
       
@@ -208,7 +208,6 @@
             $("main").html("<h1> Page non trouvée! </h1>");
         }
         let index=obj.findIndex(search=>search.id==numID)
-        console.log(index);
         $("#descriptions").html(obj[index].description);
         $("#product-image").attr("src", "./assets/img/"+obj[index].image);
         $("#product-image").attr("alt",obj[index].name );
@@ -223,16 +222,23 @@
             liste="";
         }
         $("button.btn").click(function(){
+          
             let valeur=$("#product-quantity").val();
             valeur=parseInt(valeur);
             let produitsTotal=sessionStorage.getItem("produits");
             produitsTotal=parseInt(produitsTotal);
             let total=produitsTotal+valeur;
-            sessionStorage.setItem("produits",String(total));
-            produitsTotal=sessionStorage.getItem(String(obj[index].id));
-            produitsTotal=parseInt(produitsTotal);
-            total=produitsTotal+valeur;
-            sessionStorage.setItem(String(obj[index].id),String(total))
+            sessionStorage.setItem("produits",total);//met à jour le nombre de produits dans le panier au total
+            console.log(sessionStorage.getItem("produits"));
+            if(sessionStorage.getItem(obj[index].id)==null||sessionStorage.getItem(obj[index].id)==0){
+              sessionStorage.setItem(String(obj[index].id),valeur);
+            }else{
+              produitsTotal=sessionStorage.getItem(String(obj[index].id));
+              produitsTotal=parseInt(produitsTotal);
+              total=produitsTotal+valeur;
+              sessionStorage.setItem(String(obj[index].id),total);
+              console.log(sessionStorage.getItem(String(obj[index].id)))
+            }
             box();
             redCircle();
         })
@@ -249,10 +255,12 @@
           sessionStorage.setItem("produits",0);
         }
         let produitsMis=sessionStorage.getItem("produits");
-    if(produitsMis!=0){
-      $('.count').html(produitsMis);
-      
-    }else{
+        produitsMis=parseInt(produitsMis);
+    if(produitsMis===0){
+      console.log(sessionStorage.getItem("produits"))
       $("span.count").remove();
+    }else{
+      $('#anchor').html(" <span class=\"count\"></span>");
+      $('.count').html(produitsMis);
     }
       }
