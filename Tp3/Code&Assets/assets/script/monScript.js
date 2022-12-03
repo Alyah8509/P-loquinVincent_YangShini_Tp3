@@ -305,6 +305,7 @@
         sessionStorage.setItem("11",0);
         sessionStorage.setItem("12",0);
         sessionStorage.setItem("13",0);
+        redCircle();
         }
       
 
