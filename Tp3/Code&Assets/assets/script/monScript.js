@@ -277,18 +277,35 @@
 // Section shopping-cart
 
       function shoppingCart(){
-        console.log("Id:"+sessionStorage.getItem("1"));
-        $(".shopping-cart-table, .shopping-cart-total, .order, .empty").hide();
-        $(".empty-message").show();
-        $(".empty-message").click(function(){
-          console.log("hihi")
-          $(".shopping-cart-table, .shopping-cart-total, .order, .empty").show();
-          $(".empty-message").hide();
-        $(".empty").click(function(){
-          $(".shopping-cart-table, .shopping-cart-total, .order, .empty").hide();
+        console.log(sessionStorage.getItem("produits"));
+        if(!(sessionStorage.getItem("produits")>=1)){
+          $(".shopping-cart-table, #shoppint-cart-footer").hide();
           $(".empty-message").show();
-        })
-        })
+        }
+        else{
+          $(".empty-message").hide();
+          console.log("not empty");
+        }
+        $(".empty").click(viderPanier);
       }
         
+      function viderPanier(){
+        sessionStorage.setItem("produits",0);
+        shoppingCart()
+        for (let index=0; index<13, index++;){
+          sessionStorage.setItem("1",0);
+          sessionStorage.setItem("2",0);
+          sessionStorage.setItem("3",0);
+          sessionStorage.setItem("4",0);
+          sessionStorage.setItem("5",0);
+          sessionStorage.setItem("6",0);
+          sessionStorage.setItem("7",0);
+          sessionStorage.setItem("8",0);
+          sessionStorage.setItem("9",0);
+          sessionStorage.setItem("10",0);
+          sessionStorage.setItem("11",0);
+          sessionStorage.setItem("12",0);
+          sessionStorage.setItem("13",0);
+        }
+      }
 
