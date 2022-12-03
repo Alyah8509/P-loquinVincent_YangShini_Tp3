@@ -12,14 +12,13 @@
                 let current; //array qui contient les produits affichés
                 redCircle();//s'occupe de mettre à jour le cercle rouge sur le header
                 set(array,classe,categorie, current);//contient les fonctions qui update les produits à afficher
-                shoppingCart();
                 $("button").click(function(){
                     $(this).siblings(" .selected").removeClass('selected');
                     $(this).addClass('selected');//change les classes au click
                     set(array,classe,categorie,current);//update Current pour l'afficher
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
-                redCircle();
+                shoppingCart();
               }
             }
             request.open("GET",url,true);
@@ -201,7 +200,10 @@
           }
 
       function setProduct(obj){
-        $("#dialog").hide();
+        var titre=$(document).attr('title');
+        var match="OnlineShop - Produit";
+        if(titre==match){
+          $("#dialog").hide();
         $.urlParam = function(name){
             var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
             return results[1] || 0;
@@ -245,6 +247,8 @@
             box();
             redCircle();
         })
+        }
+        
       }
 
       function box(){
@@ -273,6 +277,7 @@
 // Section shopping-cart
 
       function shoppingCart(){
+        console.log("Id:"+sessionStorage.getItem("1"));
         $(".shopping-cart-table, .shopping-cart-total, .order, .empty").hide();
         $(".empty-message").show();
         $(".empty-message").click(function(){
