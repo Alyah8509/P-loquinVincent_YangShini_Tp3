@@ -1,4 +1,6 @@
 
+      
+      
       function fetch(){
         let request=new XMLHttpRequest;
             const url="data/products.json";
@@ -10,6 +12,7 @@
                 let current; //array qui contient les produits affichés
                 redCircle();//s'occupe de mettre à jour le cercle rouge sur le header
                 set(array,classe,categorie, current);//contient les fonctions qui update les produits à afficher
+                shoppingCart();
                 $("button").click(function(){
                     $(this).siblings(" .selected").removeClass('selected');
                     $(this).addClass('selected');//change les classes au click
@@ -264,3 +267,23 @@
       $('.count').html(produitsMis);
     }
       }
+
+
+
+// Section shopping-cart
+
+      function shoppingCart(){
+        $(".shopping-cart-table, .shopping-cart-total, .order, .empty").hide();
+        $(".empty-message").show();
+        $(".empty-message").click(function(){
+          console.log("hihi")
+          $(".shopping-cart-table, .shopping-cart-total, .order, .empty").show();
+          $(".empty-message").hide();
+        $(".empty").click(function(){
+          $(".shopping-cart-table, .shopping-cart-total, .order, .empty").hide();
+          $(".empty-message").show();
+        })
+        })
+      }
+        
+
