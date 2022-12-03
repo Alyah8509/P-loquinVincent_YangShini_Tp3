@@ -292,20 +292,19 @@
       function viderPanier(){
         sessionStorage.setItem("produits",0);
         shoppingCart()
-        for (let index=0; index<13, index++;){
-          sessionStorage.setItem("1",0);
-          sessionStorage.setItem("2",0);
-          sessionStorage.setItem("3",0);
-          sessionStorage.setItem("4",0);
-          sessionStorage.setItem("5",0);
-          sessionStorage.setItem("6",0);
-          sessionStorage.setItem("7",0);
-          sessionStorage.setItem("8",0);
-          sessionStorage.setItem("9",0);
-          sessionStorage.setItem("10",0);
-          sessionStorage.setItem("11",0);
-          sessionStorage.setItem("12",0);
-          sessionStorage.setItem("13",0);
+        sessionStorage.setItem("1",0);
+        sessionStorage.setItem("2",0);
+        sessionStorage.setItem("3",0);
+        sessionStorage.setItem("4",0);
+        sessionStorage.setItem("5",0);
+        sessionStorage.setItem("6",0);
+        sessionStorage.setItem("7",0);
+        sessionStorage.setItem("8",0);
+        sessionStorage.setItem("9",0);
+        sessionStorage.setItem("10",0);
+        sessionStorage.setItem("11",0);
+        sessionStorage.setItem("12",0);
+        sessionStorage.setItem("13",0);
         }
-      }
+      
 
