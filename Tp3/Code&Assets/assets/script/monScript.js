@@ -245,7 +245,7 @@
               sessionStorage.setItem(String(obj[index].id),total);
               console.log(sessionStorage.getItem(String(obj[index].id)));
             }
-            //redCircle();
+            redCircle();
             box();
         })
         }
