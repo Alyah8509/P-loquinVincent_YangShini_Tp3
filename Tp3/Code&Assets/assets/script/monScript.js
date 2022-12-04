@@ -314,7 +314,7 @@
           $(".cart-body").append(`
           <tr class="cart-row ${id}">
           <td><button title="Supprimer" class="bouton-supprimer ${id}"><i class="fa fa-times ${id}"></i></button></td>
-          <td><a href="./product.html" class="info-produit-${id}">${productName}</a></td>
+          <td><a href="./product.html?id=${id}" class="info-produit">${productName}</a></td>
           <td>${prixUnitaire}</td>
           <td>
             <div class="row">
