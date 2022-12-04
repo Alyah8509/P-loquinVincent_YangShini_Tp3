@@ -6,19 +6,19 @@
             const url="data/products.json";
             request.onreadystatechange=function(){
               if(this.readyState==4&&this.status==200){
-               const array=JSON.parse(this.responseText);//array avec tous les produits. Il est constant.
+                const array=JSON.parse(this.responseText);//array avec tous les produits. Il est constant.
                 let categorie= $("#product-categories .selected").html();//quelle catégorie qui est sélectionné
                 let classe= $("#product-criteria .selected").html();//classement sélectionné
                 let current; //array qui contient les produits affichés
                 redCircle();//s'occupe de mettre à jour le cercle rouge sur le header
                 set(array,classe,categorie, current);//contient les fonctions qui update les produits à afficher
                 $("button").click(function(){
-                    $(this).siblings(" .selected").removeClass('selected');
-                    $(this).addClass('selected');//change les classes au click
-                    set(array,classe,categorie,current);//update Current pour l'afficher
+                $(this).siblings(" .selected").removeClass('selected');
+                $(this).addClass('selected');//change les classes au click
+                set(array,classe,categorie,current);//update Current pour l'afficher
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
-                shoppingCart();
+                shoppingCart(array);
               }
             }
             request.open("GET",url,true);
@@ -28,7 +28,8 @@
       $(document).ready(function(){
         fetch();//appelle fetch (la fonction en haut qui contient les actions à faire)
       })
-      
+
+
       function set(array, classe, categorie, current){
         classe= $("#product-criteria .selected").html();
         categorie= $("#product-categories .selected").html();
@@ -242,10 +243,10 @@
               produitsTotal=parseInt(produitsTotal);
               total=produitsTotal+valeur;
               sessionStorage.setItem(String(obj[index].id),total);
-              console.log(sessionStorage.getItem(String(obj[index].id)))
+              console.log(sessionStorage.getItem(String(obj[index].id)));
             }
+            //redCircle();
             box();
-            redCircle();
         })
         }
         
@@ -276,36 +277,173 @@
 
 // Section shopping-cart
 
-      function shoppingCart(){
+      function shoppingCart(array){
         console.log(sessionStorage.getItem("produits"));
+
         if(!(sessionStorage.getItem("produits")>=1)){
-          $(".shopping-cart-table, #shoppint-cart-footer").hide();
-          $(".empty-message").show();
+          cartIsEmpty();
         }
+
         else{
           $(".empty-message").hide();
-          console.log("not empty");
+          produceRows(array);
         }
+        verifierBoutonDesactive();
+        traitementBoutons(array);
+        prixTot(array);
         $(".empty").click(viderPanier);
       }
-        
-      function viderPanier(){
-        sessionStorage.setItem("produits",0);
-        shoppingCart()
-        sessionStorage.setItem("1",0);
-        sessionStorage.setItem("2",0);
-        sessionStorage.setItem("3",0);
-        sessionStorage.setItem("4",0);
-        sessionStorage.setItem("5",0);
-        sessionStorage.setItem("6",0);
-        sessionStorage.setItem("7",0);
-        sessionStorage.setItem("8",0);
-        sessionStorage.setItem("9",0);
-        sessionStorage.setItem("10",0);
-        sessionStorage.setItem("11",0);
-        sessionStorage.setItem("12",0);
-        sessionStorage.setItem("13",0);
-        redCircle();
-        }
+
+      function traitementBoutons(array){
+        boutonSupprimer(array);
+        boutonAjouter(array);
+        boutonRetirer(array);
+      }
+
+
+      function produceRows(array){
+        for (let index=0; index<13; index++){
+          let id=String(array[index].id)
+          if(sessionStorage.getItem(id)!=0){
+          let productName=array[index].name;
+          let productQuantity=String(sessionStorage.getItem(id));
+          let prixUnitaire=String(array[index].price)+" $";
+          let quantity=parseInt(sessionStorage.getItem(id))
+          let prixTotal=String(Math.round(100*parseInt(quantity)*array[index].price)/100)+" $";
+
+          $(".cart-body").append(`
+          <tr class="cart-row ${id}">
+          <td><button title="Supprimer" class="bouton-supprimer ${id}"><i class="fa fa-times ${id}"></i></button></td>
+          <td><a href="./product.html" class="info-produit-${id}">${productName}</a></td>
+          <td>${prixUnitaire}</td>
+          <td>
+            <div class="row">
+              <div class="col-retirer-${id}">
+                <button title="Retirer" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>
+              </div>
+              <div class="col quant ${id}">${productQuantity}</div>
+              <div class="col">
+                <button title="Ajouter" class="bouton-ajouter"><i class="fa fa-plus ${id}"></i></button>
+              </div>
+            </div>
+          </td>
+          <td class="prix-total ${id}">${prixTotal}</td>
+          </tr>`);
+        }}
+      }
+
+
+      function cartIsEmpty(){
+        $(".shopping-cart-table, #shoppint-cart-footer").hide();
+        $(".empty-message").show();
+      }
       
+      function verifierBoutonDesactive(){
+        for (let id=1; id<14; id++){
+          quantiteProduit=sessionStorage.getItem(String(id));
+          if (quantiteProduit==1){
+            $(".col-retirer-"+String(id)).html(`<button title="Retirer" disabled="" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>`);
+          }
+          else if (quantiteProduit>=2){
+            $(".col-retirer-"+String(id)).html(`<button title="Retirer" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>`);
+          }
+        }
+      }
+
+      function boutonRetirer(array){
+        let boutons=$(".bouton-retirer");
+        boutons.click(function(event){
+          let cl=event.target.className;
+          for (let id=1; id<14; id++){
+            if (cl==="fa fa-minus "+String(id)){
+              let nbrProduitsTot=parseInt(sessionStorage.getItem("produits"));
+              sessionStorage.setItem("produits",nbrProduitsTot-1);
+              let specificProductAmount=parseInt(sessionStorage.getItem(String(id)));
+              sessionStorage.setItem(String(id), specificProductAmount-1);
+              $(".cart-row").remove();
+              redCircle();
+              produceRows(array);
+              verifierBoutonDesactive();
+              prixTot(array);
+              traitementBoutons(array);
+            }
+          }
+        })
+      }
+
+
+      function boutonAjouter(array){
+        let boutons=$(".bouton-ajouter");
+        boutons.click(function(event){
+          let cl=event.target.className;
+          for (let id=1; id<14; id++){
+            if (cl==="fa fa-plus " + String(id)){
+              let nbrProduitsTot=parseInt(sessionStorage.getItem("produits"));
+              sessionStorage.setItem("produits",nbrProduitsTot+1);
+              let specificProductAmount=parseInt(sessionStorage.getItem(String(id)));
+              sessionStorage.setItem(String(id), specificProductAmount+1);
+              $(".cart-row").remove();
+              redCircle();
+              produceRows(array);
+              prixTot(array);
+              verifierBoutonDesactive();
+              traitementBoutons(array);
+            }
+          }
+        })
+      }
+
+
+
+      function boutonSupprimer(array){
+        let boutons=$(".bouton-supprimer");
+        boutons.click(function(event){
+          let bool=confirm("Voulez-vous supprimer le produit du panier ?");
+          if (bool){
+          let cl=event.target.className;
+          for (let id=1; id<14; id++){
+            if (cl==="fa fa-times " + String(id)){
+              $("tr."+String(id)).remove();
+              let nbrProduitsTot=sessionStorage.getItem("produits");
+              let nbrProduits=sessionStorage.getItem(String(id));
+              sessionStorage.setItem("produits",nbrProduitsTot-nbrProduits);
+              sessionStorage.setItem(String(id),0);
+              redCircle();
+              prixTot(array);
+              if(!(sessionStorage.getItem("produits")>=1)){
+                cartIsEmpty();
+              }
+            }
+          }
+        }
+        })
+      }
+
+
+      function prixTot(array){
+        sessionStorage.setItem("prixTotal", 0);
+        for (let index=1; index<14; index++){
+          if(sessionStorage.getItem(String(index))!=0){
+          let prixTotalItems=parseInt(sessionStorage.getItem("prixTotal"));
+          let id=array.findIndex(search=>search.id==index);
+          let amount=parseInt(sessionStorage.getItem(String(index)));
+          prixTotalItems=prixTotalItems+array[id].price*amount;
+          sessionStorage.setItem("prixTotal", prixTotalItems);
+        }}
+        let prixTotallementTotal=Math.round(100*sessionStorage.getItem("prixTotal"))/100;
+        $(".shopping-cart-total").html(`Total: <strong>${prixTotallementTotal}&thinsp;$</strong>`);
+      }
+
+
+      function viderPanier(){
+        let bool=confirm("Voulez-vous vider le panier?")
+        if (bool){
+        sessionStorage.setItem("produits",0);
+        for (let index=1; index<14; index++){
+          sessionStorage.setItem(String(index),0);
+        }
+        redCircle();
+        shoppingCart()
+        }
+      }
 

@@ -30,21 +30,6 @@
     ]
   },
   {
-    "id": 3,
-    "name": "Nikon D7000",
-    "price": 549.99,
-    "image": "camera-2.png",
-    "category": "cameras",
-    "description": "Le Nikon D7000 est un appareil photographique reflex numérique, présenté par Nikon le 15 septembre 2010. Il remplace le D90 comme reflex de milieu de gamme. (<a href='https://fr.wikipedia.org/wiki/Nikon_D7000' target='_blank'>Wikipédia</a>)",
-    "features": [
-      "Capteur CMOS 16,2 mégapixels au format Nikon DX",
-      "Processeur d'images Nikon EXPEED 2",
-      "Vidéo full HD (1920x1080)",
-      "Mise au point autofocus 39 points avec quatre modes zone AF, dont le suivi 3D",
-      "Sensibilité ISO du capteur allant de 100 à 25600 ISO (position Hi2)"
-    ]
-  },
-  {
     "id": 4,
     "name": "Canon PowerShot SD1300",
     "price": 299.99,
@@ -60,66 +45,6 @@
     ]
   },
   {
-    "id": 5,
-    "name": "Portable",
-    "price": 699.99,
-    "image": "laptop-1.png",
-    "category": "computers",
-    "description": "Portable idéal pour un étudiant ou un joueur occasionnel. L'ordinateur dispose de plusieurs ports (HDMI, USB, Ethernet, etc.) pouvant accueillir plusieurs périphériques. Le portable est équipé d'un processus i5 de troisième génération, de 8 Go de mémoire et d'un disque dur SSD de 256 Go. De plus, ce portable est équipé d'une carte graphique NVIDIA GeForce GTX 660M.",
-    "features": [
-      "Processus i5 de troisième génération",
-      "8 Go de RAM",
-      "Disque SSD de 256 Go",
-      "Ports HDMI, USB et Ethernet",
-      "Carte graphique NVIDIA GeForce GTX 660M"
-    ]
-  },
-  {
-    "id": 6,
-    "name": "Portable professionnel",
-    "price": 599.99,
-    "image": "laptop-2.png",
-    "category": "computers",
-    "description": "Portable professionnel idéal pour le travail à la maison ou dans une petite entreprise. L’ordinateur dispose d’un grand nombre de ports (HDMI, VGA, USB, Ethernet, etc.) ce qui facilite le branchement de différents périphériques. Le portable est équipé d’un processeur i5 de troisième génération, de 8 Go de RAM et d’un disque dur SSD de 256 Go.",
-    "features": [
-      "Processus i5 de troisième génération",
-      "8 Go de RAM",
-      "Disque SSD de 256 Go",
-      "Ports HDMI, VGA, USB, Ethernet et Firewire",
-      "Construction robuste"
-    ]
-  },
-  {
-    "id": 7,
-    "name": "iMac 27\"",
-    "price": 2299.99,
-    "image": "mac.png",
-    "category": "computers",
-    "description": "L'iMac est la gamme d’ordinateurs tout-en-un grand public d’Apple depuis 1998. Les premiers modèles, à écran cathodique, ont relancé la marque Apple à la fin des années 1990. Six générations de cet ordinateur de bureau ont été commercialisées en quatorze ans, du premier modèle coloré aux formes rondes au tout-en-un à écran plat 16:9 (27 pouces) aujourd'hui en vente. Les appareils sont animés par les systèmes d'exploitations d'Apple : Mac OS 9 pour les premières générations, puis macOS. (<a href='https://fr.wikipedia.org/wiki/IMac' target='_blank'>Wikipédia</a>)",
-    "features": [
-      "Processeur quadricœur Intel Core i5 à 3,2 GHz (jusqu’à 3,6 GHz avec Turbo Boost)",
-      "8 Go (2 x 4 Go) de mémoire DDR3 à 1 867 MHz",
-      "Disque dur de 1 To à 7 200 tr/min",
-      "Processeur graphique AMD Radeon R9 M380 avec 2 Go de mémoire GDDR5",
-      "Caméra FaceTime HD"
-    ]
-  },
-  {
-    "id": 8,
-    "name": "Moniteur 19\"",
-    "price": 149.99,
-    "image": "monitor.png",
-    "category": "screens",
-    "description": "Moniteur LCD de 19 pouces pouvant être branché via VGA, HDMI et DVI. Cet écran est facilement ajustable dans plusieurs positions, afin de maximiser le confort de l’utilisateur.",
-    "features": [
-      "Écran de 19\"",
-      "Entrées VGA, HDMI et DVI",
-      "Ajustable dans plusieurs positions",
-      "Écran mat limitant les reflets",
-      "Garantie 2 ans"
-    ]
-  },
-  {
     "id": 9,
     "name": "Console PS3",
     "price": 349.99,
@@ -132,20 +57,6 @@
       "256 Mo de mémoire principale XDR à 3.2 Ghz / 256 Mo de mémoire vidéo GDDR3 à 700 Mhz",
       "Lecteur Blu-Ray (54 Go maximum)",
       "Disque dur détachable (2 pouces et demi)"
-    ]
-  },
-  {
-    "id": 10,
-    "name": "Téléviseur 50\"",
-    "price": 899.99,
-    "image": "tv.png",
-    "category": "screens",
-    "description": "Téléviseur de 50\" possédant une résolution de 1080p. Ce téléviseur est parfait pour visionner vos séries préférées. De plus, cette télévision possède trois prises HDMI et un support natif pour la technologie <em>Chromecast</em>.",
-    "features": [
-      "Résolution de 1920 x 1080",
-      "Rapport d'image de 16:9",
-      "Trois ports HDMI",
-      "Intègre la technologie <em>Chromecast</em>"
     ]
   },
   {
@@ -179,6 +90,66 @@
     ]
   },
   {
+    "id": 7,
+    "name": "iMac 27\"",
+    "price": 2299.99,
+    "image": "mac.png",
+    "category": "computers",
+    "description": "L'iMac est la gamme d’ordinateurs tout-en-un grand public d’Apple depuis 1998. Les premiers modèles, à écran cathodique, ont relancé la marque Apple à la fin des années 1990. Six générations de cet ordinateur de bureau ont été commercialisées en quatorze ans, du premier modèle coloré aux formes rondes au tout-en-un à écran plat 16:9 (27 pouces) aujourd'hui en vente. Les appareils sont animés par les systèmes d'exploitations d'Apple : Mac OS 9 pour les premières générations, puis macOS. (<a href='https://fr.wikipedia.org/wiki/IMac' target='_blank'>Wikipédia</a>)",
+    "features": [
+      "Processeur quadricœur Intel Core i5 à 3,2 GHz (jusqu’à 3,6 GHz avec Turbo Boost)",
+      "8 Go (2 x 4 Go) de mémoire DDR3 à 1 867 MHz",
+      "Disque dur de 1 To à 7 200 tr/min",
+      "Processeur graphique AMD Radeon R9 M380 avec 2 Go de mémoire GDDR5",
+      "Caméra FaceTime HD"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Nikon D7000",
+    "price": 549.99,
+    "image": "camera-2.png",
+    "category": "cameras",
+    "description": "Le Nikon D7000 est un appareil photographique reflex numérique, présenté par Nikon le 15 septembre 2010. Il remplace le D90 comme reflex de milieu de gamme. (<a href='https://fr.wikipedia.org/wiki/Nikon_D7000' target='_blank'>Wikipédia</a>)",
+    "features": [
+      "Capteur CMOS 16,2 mégapixels au format Nikon DX",
+      "Processeur d'images Nikon EXPEED 2",
+      "Vidéo full HD (1920x1080)",
+      "Mise au point autofocus 39 points avec quatre modes zone AF, dont le suivi 3D",
+      "Sensibilité ISO du capteur allant de 100 à 25600 ISO (position Hi2)"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Portable",
+    "price": 699.99,
+    "image": "laptop-1.png",
+    "category": "computers",
+    "description": "Portable idéal pour un étudiant ou un joueur occasionnel. L'ordinateur dispose de plusieurs ports (HDMI, USB, Ethernet, etc.) pouvant accueillir plusieurs périphériques. Le portable est équipé d'un processus i5 de troisième génération, de 8 Go de mémoire et d'un disque dur SSD de 256 Go. De plus, ce portable est équipé d'une carte graphique NVIDIA GeForce GTX 660M.",
+    "features": [
+      "Processus i5 de troisième génération",
+      "8 Go de RAM",
+      "Disque SSD de 256 Go",
+      "Ports HDMI, USB et Ethernet",
+      "Carte graphique NVIDIA GeForce GTX 660M"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Portable professionnel",
+    "price": 599.99,
+    "image": "laptop-2.png",
+    "category": "computers",
+    "description": "Portable professionnel idéal pour le travail à la maison ou dans une petite entreprise. L’ordinateur dispose d’un grand nombre de ports (HDMI, VGA, USB, Ethernet, etc.) ce qui facilite le branchement de différents périphériques. Le portable est équipé d’un processeur i5 de troisième génération, de 8 Go de RAM et d’un disque dur SSD de 256 Go.",
+    "features": [
+      "Processus i5 de troisième génération",
+      "8 Go de RAM",
+      "Disque SSD de 256 Go",
+      "Ports HDMI, VGA, USB, Ethernet et Firewire",
+      "Construction robuste"
+    ]
+  },
+  {
     "id": 13,
     "name": "Manette Xbox 360",
     "price": 29.99,
@@ -189,6 +160,35 @@
       "Manette sans fil 2.4GHz avec adapteur USB",
       "Compacte et ergonomique",
       "Port pour casque d'écoute pour Xbox Live"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Moniteur 19\"",
+    "price": 149.99,
+    "image": "monitor.png",
+    "category": "screens",
+    "description": "Moniteur LCD de 19 pouces pouvant être branché via VGA, HDMI et DVI. Cet écran est facilement ajustable dans plusieurs positions, afin de maximiser le confort de l’utilisateur.",
+    "features": [
+      "Écran de 19\"",
+      "Entrées VGA, HDMI et DVI",
+      "Ajustable dans plusieurs positions",
+      "Écran mat limitant les reflets",
+      "Garantie 2 ans"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Téléviseur 50\"",
+    "price": 899.99,
+    "image": "tv.png",
+    "category": "screens",
+    "description": "Téléviseur de 50\" possédant une résolution de 1080p. Ce téléviseur est parfait pour visionner vos séries préférées. De plus, cette télévision possède trois prises HDMI et un support natif pour la technologie <em>Chromecast</em>.",
+    "features": [
+      "Résolution de 1920 x 1080",
+      "Rapport d'image de 16:9",
+      "Trois ports HDMI",
+      "Intègre la technologie <em>Chromecast</em>"
     ]
   }
 ]
