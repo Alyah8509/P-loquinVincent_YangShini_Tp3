@@ -266,11 +266,14 @@
         produitsMis=parseInt(produitsMis);
     if(produitsMis===0){
       console.log(sessionStorage.getItem("produits"))
-      $("span.count").remove();
+      $("span.count").hide();
     }else{
-      $('#anchor').html(" <span class=\"count\"></span>");
+      $("span.count").show();
       $('.count').html(produitsMis);
     }
+    header=$(".header-container").html()
+    console.log(header)
+    $(".header-container").html(header)
       }
 
 
