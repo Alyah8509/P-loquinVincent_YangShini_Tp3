@@ -19,6 +19,7 @@
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
                 shoppingCart(array);
+                commander();
               }
             }
             request.open("GET",url,true);
@@ -271,9 +272,6 @@
       $("span.count").show();
       $('.count').html(produitsMis);
     }
-    header=$(".header-container").html()
-    console.log(header)
-    $(".header-container").html(header)
       }
 
 
@@ -449,3 +447,35 @@
         }
       }
 
+      // Section Validation du formulaire de commande
+      function commander(){
+      jQuery.validator.addMethod(
+        "dateExpiration", function(value, element){
+        return this.optional(element) || /^(0[1-9]|1[0-2])\/+([0-9]{4}|[0-9]{2})$/.test(value);
+      }, "Entrez une date d'expiration valide."); 
+
+      $("#payer").click(function(){
+      
+        $("#formulaireCommande").validate({
+          rules:{
+            phone:{
+              required: true,
+              phoneUS: true
+            },
+            "credit-card":{
+              creditcard: true
+            },
+            expiration:{
+              required: true,
+              dateExpiration: true
+          }
+          }
+        });
+        
+        let form = $("#formulaireCommande");
+        if (form[0].checkValidity()){
+          viderPanier()
+        }
+      });
+
+    }

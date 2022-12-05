@@ -8,6 +8,9 @@
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
   <script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="./assets/script/monScript.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="./assets/js/additional-methods.min.js"></script>
+  <script type="text/javascript" src="./assets/js/messages_fr.js"></script>
 </head>
 <body>
   <header>
@@ -38,20 +41,20 @@
   <main>
     <article>
       <h1>Commande</h1>
-      <form action="./confirmation.html" method="post">
+      <form action="./confirmation.html" method="GET" id="formulaireCommande">
         <section>
           <h2>Contact</h2>
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="first-name">Prénom</label>
-                <input class="form-control" type="text" id="first-name" name="first-name" placeholder="Prénom" required>
+                <input class="form-control" minlength="2" type="text" id="first-name" name="firstname" placeholder="Prénom" required>
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="last-name">Nom</label>
-                <input class="form-control" type="text" id="last-name" name="last-name" placeholder="Nom" required>
+                <input class="form-control" minlength="2" type="text" id="last-name" name="last-name" placeholder="Nom" required>
               </div>
             </div>
           </div>
@@ -65,7 +68,7 @@
             <div class="col">
               <div class="form-group">
                 <label for="phone">Téléphone</label>
-                <input class="form-control" type="tel" id="phone" name="phone" placeholder="###-###-####" required>
+                <input class="form-control" type="tel" id="phone" name="phone" placeholder="###-###-####" required phoneUS>
               </div>
             </div>
           </div>
@@ -82,12 +85,12 @@
             <div class="col">
               <div class="form-group">
                 <label for="credit-card-expiry">Expiration (mm/aa)</label>
-                <input class="form-control" type="text" id="credit-card-expiry" name="credit-card-expiry" placeholder="mm/aa" required>
+                <input class="form-control" type="text" id="credit-card-expiry" name="expiration" placeholder="mm/aa" required>
               </div>
             </div>
           </div>
         </section>
-        <button class="btn pull-right" type="submit">Payer <i class="fa fa-angle-double-right"></i></button>
+        <button class="btn pull-right" id="payer" type="submit">Payer <i class="fa fa-angle-double-right"></i></button>
       </form>
     </article>
   </main>
