@@ -288,7 +288,6 @@
           $(".empty-message").hide();
           produceRows(array);
         }
-        verifierBoutonDesactive();
         traitementBoutons(array);
         prixTot(array);
         $(".empty").click(viderPanier);
@@ -304,7 +303,7 @@
       function produceRows(array){
         for (let index=0; index<13; index++){
           let id=String(array[index].id)
-          if(sessionStorage.getItem(id)!=0){
+          if(sessionStorage.getItem(id) > 0){
           let productName=array[index].name;
           let productQuantity=String(sessionStorage.getItem(id));
           let prixUnitaire=String(array[index].price)+" $";
@@ -318,17 +317,19 @@
           <td>${prixUnitaire}</td>
           <td>
             <div class="row">
-              <div class="col-retirer-${id}">
-                <button title="Retirer" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>
+              <div class="col-retirer ${id}">
+                <button title="Retirer" class="bouton-retirer ${id}"><i class="fa fa-minus ${id}"></i></button>
               </div>
               <div class="col quant ${id}">${productQuantity}</div>
               <div class="col">
-                <button title="Ajouter" class="bouton-ajouter"><i class="fa fa-plus ${id}"></i></button>
+                <button title="Ajouter" class="bouton-ajouter ${id}"><i class="fa fa-plus ${id}"></i></button>
               </div>
             </div>
           </td>
           <td class="prix-total ${id}">${prixTotal}</td>
           </tr>`);
+
+          verifierBoutonDesactive();
         }}
       }
 
@@ -342,10 +343,10 @@
         for (let id=1; id<14; id++){
           quantiteProduit=sessionStorage.getItem(String(id));
           if (quantiteProduit==1){
-            $(".col-retirer-"+String(id)).html(`<button title="Retirer" disabled="" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>`);
+            $(".col-retirer."+String(id)).html(`<button title="Retirer" disabled="" ><i class="fa fa-minus ${id}"></i></button>`);
           }
           else if (quantiteProduit>=2){
-            $(".col-retirer-"+String(id)).html(`<button title="Retirer" class="bouton-retirer"><i class="fa fa-minus ${id}"></i></button>`);
+            $(".col-retirer "+String(id)).html(`<button title="Retirer" class="bouton-retirer ${id}"><i class="fa fa-minus ${id}"></i></button>`);
           }
         }
       }
@@ -355,7 +356,7 @@
         boutons.click(function(event){
           let cl=event.target.className;
           for (let id=1; id<14; id++){
-            if (cl==="fa fa-minus "+String(id)){
+            if (cl==="fa fa-minus "+String(id) || cl==="bouton-retirer "+String(id)){
               let nbrProduitsTot=parseInt(sessionStorage.getItem("produits"));
               sessionStorage.setItem("produits",nbrProduitsTot-1);
               let specificProductAmount=parseInt(sessionStorage.getItem(String(id)));
@@ -363,7 +364,6 @@
               $(".cart-row").remove();
               redCircle();
               produceRows(array);
-              verifierBoutonDesactive();
               prixTot(array);
               traitementBoutons(array);
             }
@@ -377,7 +377,7 @@
         boutons.click(function(event){
           let cl=event.target.className;
           for (let id=1; id<14; id++){
-            if (cl==="fa fa-plus " + String(id)){
+            if (cl==="fa fa-plus "+String(id) || cl==="bouton-ajouter "+String(id)){
               let nbrProduitsTot=parseInt(sessionStorage.getItem("produits"));
               sessionStorage.setItem("produits",nbrProduitsTot+1);
               let specificProductAmount=parseInt(sessionStorage.getItem(String(id)));
@@ -386,7 +386,6 @@
               redCircle();
               produceRows(array);
               prixTot(array);
-              verifierBoutonDesactive();
               traitementBoutons(array);
             }
           }
@@ -402,7 +401,7 @@
           if (bool){
           let cl=event.target.className;
           for (let id=1; id<14; id++){
-            if (cl==="fa fa-times " + String(id)){
+            if (cl==="fa fa-times "+String(id) || cl==="bouton-supprimer "+String(id)){
               $("tr."+String(id)).remove();
               let nbrProduitsTot=sessionStorage.getItem("produits");
               let nbrProduits=sessionStorage.getItem(String(id));
@@ -423,7 +422,7 @@
       function prixTot(array){
         sessionStorage.setItem("prixTotal", 0);
         for (let index=1; index<14; index++){
-          if(sessionStorage.getItem(String(index))!=0){
+          if(sessionStorage.getItem(String(index))>0){
           let prixTotalItems=parseInt(sessionStorage.getItem("prixTotal"));
           let id=array.findIndex(search=>search.id==index);
           let amount=parseInt(sessionStorage.getItem(String(index)));
