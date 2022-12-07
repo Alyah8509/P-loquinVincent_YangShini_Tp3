@@ -202,53 +202,52 @@
             return current;
           }
 
-      function setProduct(obj){
+      function setProduct(array){//prépare la page Product
         var titre=$(document).attr('title');
-        var match="OnlineShop - Produit";
+        var match="OnlineShop - Produit";//s'assure que la page active est Product.html (pour éviter les erreurs d'url)
         if(titre==match){
           $("#dialog").hide();
         $.urlParam = function(name){
             var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
             return results[1] || 0;
         }
-        let numID=$.urlParam('id'); 
+        let numID=$.urlParam('id'); //garde l'id de l'url
         if(numID<1||numID>13&&$(document).attr('title')=="OnlineShop - Produit"){
-            $("main").html("<h1> Page non trouvée! </h1>");
+            $("main").html("<h1> Page non trouvée! </h1>");//si l'id n'existe pas
         }
-        let index=obj.findIndex(search=>search.id==numID)
-        $("#descriptions").html(obj[index].description);
-        $("#product-image").attr("src", "./assets/img/"+obj[index].image);
-        $("#product-image").attr("alt",obj[index].name );
-        $("#nom").html(obj[index].name)
-        $("#price").html("Prix: <strong>"+obj[index].price+"&thinsp;$</strong>");
+        let index=array.findIndex(search=>search.id==numID)
+        $("#descriptions").html(array[index].description);
+        $("#product-image").attr("src", "./assets/img/"+array[index].image);
+        $("#product-image").attr("alt",array[index].name );
+        $("#nom").html(array[index].name)
+        $("#price").html("Prix: <strong>"+array[index].price+"&thinsp;$</strong>");
         $("#caracteristiques").html("")
-        let arrayList=(obj[index].features);
+        let arrayList=(array[index].features);
         let liste="";
         for(let index=0; index<arrayList.length; index++){
             liste+=" <li>"+arrayList[index]+"</li>"
             $("#caracteristiques").append(liste);
             liste="";
-        }
+        }//met en place les descriptions et caractéristiques du produit
         $("button.btn").click(function(){
           
-            let valeur=$("#product-quantity").val();
-            valeur=parseInt(valeur);
-            let produitsTotal=sessionStorage.getItem("produits");
+            let valeur=$("#product-quantity").val();//le nombre de produits ajouté
+            valeur=parseInt(valeur);//tout passe par ParseInt pour éviter des bugs
+            let produitsTotal=sessionStorage.getItem("produits");//le nombre de produits total
             produitsTotal=parseInt(produitsTotal);
             let total=produitsTotal+valeur;
             sessionStorage.setItem("produits",total);//met à jour le nombre de produits dans le panier au total
-            console.log(sessionStorage.getItem("produits"));
-            if(sessionStorage.getItem(obj[index].id)==null||sessionStorage.getItem(obj[index].id)==0){
-              sessionStorage.setItem(String(obj[index].id),valeur);
+            if(sessionStorage.getItem(array[index].id)==null||sessionStorage.getItem(array[index].id)==0){
+              sessionStorage.setItem(String(array[index].id),valeur);//si ce produit spécifique n'est pas dans le panier, l'ajouter
             }else{
-              produitsTotal=sessionStorage.getItem(String(obj[index].id));
+              produitsTotal=sessionStorage.getItem(String(array[index].id));
               produitsTotal=parseInt(produitsTotal);
               total=produitsTotal+valeur;
-              sessionStorage.setItem(String(obj[index].id),total);
-              console.log(sessionStorage.getItem(String(obj[index].id)));
+              sessionStorage.setItem(String(array[index].id),total);
+              //si le produit est déjà dans le panier, faire une addition pour la quantité de ce produit dans le panier
             }
             redCircle();
-            box();
+            box();//met à jour le cercle rouge et la boîte de dialogue
         })
         }
         
@@ -262,16 +261,16 @@
 
       function redCircle(){
         if(sessionStorage.getItem("produits")===null){
-          sessionStorage.setItem("produits",0);
+          sessionStorage.setItem("produits",0);//pour le début
         }
         let produitsMis=sessionStorage.getItem("produits");
         produitsMis=parseInt(produitsMis);
-    if(produitsMis===0){
+    if(produitsMis===0){//si il n'y a rien dans le panier, le cercle disparaît
       console.log(sessionStorage.getItem("produits"))
       $("span.count").hide();
     }else{
       $("span.count").show();
-      $('.count').html(produitsMis);
+      $('.count').html(produitsMis);//sinon, de setProduct le nombre de produits total est toujours gardé, alors il suffit de l'afficher.
     }
       }
 
