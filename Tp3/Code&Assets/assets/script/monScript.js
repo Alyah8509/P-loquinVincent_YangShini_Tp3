@@ -19,7 +19,8 @@
                 })
                 setProduct(array);//fonction qui s'occupe de l'affichage de la page Produit.
                 shoppingCart(array);
-                commander();
+                $("#payer").click(commander);
+                produirePageConfirmation();
               }
             }
             request.open("GET",url,true);
@@ -278,29 +279,41 @@
 
 // Section shopping-cart
 
-      function shoppingCart(array){
+      
+        // La fonction shoppingCart s'occupe du traitement des clics
+        // et de l'affichage dans la page html shopping-cart en fonction
+        // du contenu de la commande de l'utilisateur.
+        function shoppingCart(array){
         console.log(sessionStorage.getItem("produits"));
 
+        // Modifier l'affichage du panier si aucun produit n'a été ajouté.
         if(!(sessionStorage.getItem("produits")>=1)){
           cartIsEmpty();
         }
 
+        // Modifier l'affichage du panier si il contient des produits.
         else{
           $(".empty-message").hide();
           produceRows(array);
         }
+        // Traite le clic des boutons dans le panier.
         traitementBoutons(array);
+        // Mise a jour du prix Total dans le panier.
         prixTot(array);
-        $(".empty").click(viderPanier);
       }
 
+      
+      // Fonction qui traite le clic des boutons du panier.
       function traitementBoutons(array){
         boutonSupprimer(array);
         boutonAjouter(array);
         boutonRetirer(array);
+        $(".empty").click(viderPanier);
       }
 
 
+      // Fonction qui produit les rangées du tableau dans le panier d'achat
+      // en fonction des items qui s'y trouvent.
       function produceRows(array){
         for (let index=0; index<13; index++){
           let id=String(array[index].id)
@@ -310,7 +323,8 @@
           let prixUnitaire=String(array[index].price)+" $";
           let quantity=parseInt(sessionStorage.getItem(id))
           let prixTotal=String(Math.round(100*parseInt(quantity)*array[index].price)/100)+" $";
-
+            // La fonction indroduit du code HTML différent pour chaque item dans le panier
+            // pour faciliter le traitement de boutons spécifiques aux différents items.
           $(".cart-body").append(`
           <tr class="cart-row ${id}">
           <td><button title="Supprimer" class="bouton-supprimer ${id}"><i class="fa fa-times ${id}"></i></button></td>
@@ -334,12 +348,15 @@
         }}
       }
 
-
+      // Fonction qui modifie l'affichage du panier lorsque celui-ci est vide.
+      // Retire le tableau et ajoute un message spécifique au panier vide.
       function cartIsEmpty(){
         $(".shopping-cart-table, #shoppint-cart-footer").hide();
         $(".empty-message").show();
       }
       
+      // Fonction qui désactive le bouton qui sert à retirer un item dans le panier
+      // si jamais la quantité de cet item est égale à 1.
       function verifierBoutonDesactive(){
         for (let id=1; id<14; id++){
           quantiteProduit=sessionStorage.getItem(String(id));
@@ -352,6 +369,8 @@
         }
       }
 
+      // Fonction qui permet de retirer un item du panier si on clique sur le
+      // bouton "-".
       function boutonRetirer(array){
         let boutons=$(".bouton-retirer");
         boutons.click(function(event){
@@ -362,17 +381,22 @@
               sessionStorage.setItem("produits",nbrProduitsTot-1);
               let specificProductAmount=parseInt(sessionStorage.getItem(String(id)));
               sessionStorage.setItem(String(id), specificProductAmount-1);
+              // Enlève les rangées du tableau pour les actualiser aux bonnes valeurs.
               $(".cart-row").remove();
+              // Met à jour l'icone rouge de l'entête.
               redCircle();
               produceRows(array);
+              // Actualise le prix total.
               prixTot(array);
+              // Le programme est prêt à traiter le prochain clic.
               traitementBoutons(array);
             }
           }
         })
       }
 
-
+      // Fonction qui permet d'ajouter un item au panier si on clique sur le
+      // bouton "+". Fonctionnement similaire à la fonction boutonRetirer
       function boutonAjouter(array){
         let boutons=$(".bouton-ajouter");
         boutons.click(function(event){
@@ -394,7 +418,8 @@
       }
 
 
-
+      // Fibctuib qui permet de supprimer un produit du panier si on clique surà
+      // le bouton "x".
       function boutonSupprimer(array){
         let boutons=$(".bouton-supprimer");
         boutons.click(function(event){
@@ -406,7 +431,10 @@
               $("tr."+String(id)).remove();
               let nbrProduitsTot=sessionStorage.getItem("produits");
               let nbrProduits=sessionStorage.getItem(String(id));
+              // Soustrait la quantité de ce produit qu'il y avait dans le panier
+              // à la quantité totale de produits.
               sessionStorage.setItem("produits",nbrProduitsTot-nbrProduits);
+              // Remet le compte précis pour cet item à 0.
               sessionStorage.setItem(String(id),0);
               redCircle();
               prixTot(array);
@@ -419,7 +447,8 @@
         })
       }
 
-
+      // Fonction qui calcule et met à jour l'affichage du prix total en fonction
+      // de la quantité des différents items et de leurs prix respectifs.
       function prixTot(array){
         sessionStorage.setItem("prixTotal", 0);
         for (let index=1; index<14; index++){
@@ -434,7 +463,7 @@
         $(".shopping-cart-total").html(`Total: <strong>${prixTotallementTotal}&thinsp;$</strong>`);
       }
 
-
+      // Fonction qui permet de vider le panier de tous ses items.
       function viderPanier(){
         let bool=confirm("Voulez-vous vider le panier?")
         if (bool){
@@ -442,40 +471,83 @@
         for (let index=1; index<14; index++){
           sessionStorage.setItem(String(index),0);
         }
+        // Remet à jour l'icône de l'entête.
         redCircle();
+        // Relance la fonction shoppingCart pour modifier l'affichage
+        // du panier.
         shoppingCart()
         }
       }
 
       // Section Validation du formulaire de commande
       function commander(){
-      jQuery.validator.addMethod(
-        "dateExpiration", function(value, element){
-        return this.optional(element) || /^(0[1-9]|1[0-2])\/+([0-9]{4}|[0-9]{2})$/.test(value);
-      }, "Entrez une date d'expiration valide."); 
+        // Méthode de validation spéciale pour la date d'expiration dans le format "MM/JJ"
+        jQuery.validator.addMethod(
+          "dateExpiration", function(value, element){
+          return this.optional(element) || /^(0[1-9]|1[0-2])\/+([0-9]{4}|[0-9]{2})$/.test(value);
+        }, "Entrez une date d'expiration valide."); 
+  
 
-      $("#payer").click(function(){
-      
-        $("#formulaireCommande").validate({
-          rules:{
-            phone:{
-              required: true,
-              phoneUS: true
-            },
-            "credit-card":{
-              creditcard: true
-            },
-            expiration:{
-              required: true,
-              dateExpiration: true
-          }
-          }
-        });
         
-        let form = $("#formulaireCommande");
-        if (form[0].checkValidity()){
-          viderPanier()
-        }
-      });
+          // Différentes petites règles ajoutées pour améliorer la validation du formulaire de commande.
+          $("#formulaireCommande").validate({
+            rules:{
+              phone:{
+                required: true,
+                phoneUS: true
+              },
+              "credit-card":{
+                creditcard: true
+              },
+              expiration:{
+                required: true,
+                dateExpiration: true
+            }
+            }
+          });
+          
+          // Si le formulaire est validé, on passe la commande et on active la fonction passerCommande.
+          let form = $("#formulaireCommande");
+          if (form[0].checkValidity()){
+            sessionStorage.setItem("nomCommande", $("#first-name").val()+" "+$("#last-name").val());
+            passerCommande();
+          }
+  
+      }
+  
+          // La fonction passerCommande permet de modifier les données qui serviront pour l'affichage de la 
+          // page de confirmation en fonction du nom de l'utilisateur qui passe la commande et du numéro 
+          // de la commande qui augmente d'une commande à l'autre.
+          function passerCommande(){
+            if (!(parseInt(sessionStorage.getItem("numeroCommande"))>0)){
+              sessionStorage.setItem("numeroCommande", 1);
+            }
+            else{
+              numeroCommande=parseInt(sessionStorage.getItem("numeroCommande"));
+              sessionStorage.setItem("numeroCommande",numeroCommande+1);
+            }
+            sessionStorage.setItem("produits",0);
+            for (let index=1; index<14; index++){
+              sessionStorage.setItem(String(index),0);
+           }
+            // Remet à jour l'icône de l'entête.
+            redCircle();
+          }
 
-    }
+          // La fonction produirePageConfirmation s'assure que l'affichage de la page de confirmation
+          // contient le nom de la personne qui a effectué la commande ainsi que so numéro de commande.
+          function produirePageConfirmation(){
+            let nomCommande=sessionStorage.getItem("nomCommande");
+            $("#name").html(`Votre commande est confirmée ${nomCommande}!`);
+            let numeroCommande=String(sessionStorage.getItem("numeroCommande"))
+            numeroCommande=pad(numeroCommande, 5)
+            $("#confirmation-number").html(`Votre numéro de confirmation est le <strong>${numeroCommande}</strong>.`)
+          }
+
+
+          // Fonction de padding pour le numero de commande tirée de 
+          // https://stackoverflow.com/questions/6466135/adding-extra-zeros-in-front-of-a-number-using-jquery
+          function pad (str, max) {
+            str = str.toString();
+            return str.length < max ? pad("0" + str, max) : str;
+          }
